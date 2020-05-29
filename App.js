@@ -1,10 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View,ScrollView } from 'react-native';
+import Constants from 'expo-constants';
+import BoxList from './components/BoxList'
+
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <BoxList />
     </View>
   );
 }
@@ -13,7 +16,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingHorizontal:5,
+    alignItems:'center',
+    paddingTop:Constants.statusBarHeight + 10,
+    paddingBottom:10,
   },
 });
