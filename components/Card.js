@@ -3,11 +3,11 @@ import {View,StyleSheet,Image,Text,TouchableOpacity} from 'react-native'
 import InputForm from './InputForm'
 
 export default class Card extends React.Component{
-   
+
     render(){
     return (
     <View style={{...styles.card,...this.props.style}}>
-        {this.props.action==='EDIT_USER' && <InputForm 
+        {this.props.action==='EDIT_USER' && this.props.id===this.props.edit_id && <InputForm 
         cancel={this.props.cancel} action="'EDIT_USER'" edit={this.props.editUserAsync} 
         user={{name:this.props.name,email:this.props.email,id:this.props.id}}  />}
         <View style={styles.row}>
@@ -18,7 +18,7 @@ export default class Card extends React.Component{
             </View>
         </View>
         <View style={{...styles.row,marginTop:'1.75%', justifyContent:'space-evenly' }}>
-            <TouchableOpacity onPress={this.props.editUserModal} >
+            <TouchableOpacity onPress={()=>this.props.editUserModal(this.props.id)} >
                 <Text style={styles.edit} >EDIT</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={this.props.delete} >

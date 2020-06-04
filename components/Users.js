@@ -9,7 +9,8 @@ export default class Users extends React.Component{
     state={
         users:[],
         isFormVisible:false,
-        action:''
+        action:'',
+        id:'',
       }
         createUserAsync = async(obj)=>{
             try{
@@ -29,11 +30,12 @@ export default class Users extends React.Component{
                 const result= await editUser(user.id,obj)
                 const new_user={...result,id:user.id}
                 console.log("result", new_user)
+                console.log("Prev users", this.state.users)
                 const new_Users= this.state.users.map(item=>{
                     return item.id!==user.id?item: new_user
                 })
-                console.log(new_Users)
-                this.setState({users:new_Users,isFormVisible:false,action:''})
+                console.log("New userr",new_Users)
+                this.setState({users:new_Users,isFormVisible:false,action:'',id:''})
             }
             catch(err){
                 console.log(err)
@@ -54,8 +56,8 @@ export default class Users extends React.Component{
             this.setState({isFormVisible:true, action:'CREATE_USER'})
         }
 
-        editUserModal =()=>{
-            this.setState({isFormVisible:true, action:'EDIT_USER'})
+        editUserModal =(id)=>{
+            this.setState({action:'EDIT_USER',id:id})
         }
 
 render()
@@ -69,8 +71,8 @@ render()
 
         {this.state.users && <FlatList data={this.state.users} showsVerticalScrollIndicator={false}  
         keyExtractor={ user => user.id.toString()} 
-        renderItem ={({item})=> <Card {...item} editUserModal={()=>this.editUserModal()}
-        editUserAsync={this.editUserAsync} action={this.state.action} cancel={this.cancel}
+        renderItem ={({item})=> <Card {...item} editUserModal={this.editUserModal}
+        editUserAsync={this.editUserAsync} action={this.state.action} cancel={this.cancel} edit_id={this.state.id}
          delete={()=>this.deleteUser(item)}  /> }
         />}
     </View>
